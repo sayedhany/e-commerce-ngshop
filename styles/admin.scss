@@ -1,0 +1,14 @@
+@import '~normalize.css/normalize.css';
+@import url('./base/color.scss');
+@import url('./base/fonts.scss');
+@import url('./base/mixins.scss');
+@import url('./base/configuration.scss');
+
+@import '~primeicons/primeicons.css';
+@import '~primeng/resources/themes/saga-blue/theme.css';
+@import '~primeng/resources/primeng.min.css';
+@import '~primeflex/primeflex.css';
+
+@import url('./apps/admin/shell.scss');
+
+@import url('./libs/ui/ui.scss');

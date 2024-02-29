@@ -7,7 +7,11 @@
             "parserOptions": {
                 "project": ["libs/ui/tsconfig.*?.json"]
             },
-            "rules": {}
+            "rules": {
+                "no-empty-function": "off",
+                "@typescript-eslint/no-empty-function": "off",
+                "@angular-eslint/no-empty-lifecycle-method": "off"
+            }
         },
         {
             "files": ["*.ts", "*.tsx"],

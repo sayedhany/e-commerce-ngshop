@@ -8,7 +8,10 @@
             "parserOptions": { "project": ["libs/products/tsconfig.*?.json"] },
             "rules": {
                 "@angular-eslint/directive-selector": ["error", { "type": "attribute", "prefix": "cairo", "style": "camelCase" }],
-                "@angular-eslint/component-selector": ["error", { "type": "element", "prefix": "cairo", "style": "kebab-case" }]
+                "@angular-eslint/component-selector": ["error", { "type": "element", "prefix": "cairo", "style": "kebab-case" }],
+                "no-empty-function": "off",
+                "@typescript-eslint/no-empty-function": "off",
+                "@angular-eslint/no-empty-lifecycle-method": "off"
             }
         },
         { "files": ["*.html"], "extends": ["plugin:@nrwl/nx/angular-template"], "rules": {} }

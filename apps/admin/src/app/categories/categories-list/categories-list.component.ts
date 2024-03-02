@@ -1,4 +1,8 @@
+import { Category } from '@cairo/products';
+import { CategoriesService } from '@cairo/products';
 import { Component, OnInit } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'admin-categories-list',
@@ -6,52 +10,62 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./categories-list.component.scss']
 })
 export class CategoriesListComponent implements OnInit {
-    categories: any[] = [
-        {
-            // _id: '5f9d7e938680aa1d979d7e19',
-            name: 'Games',
-            color: '#ffb8b8',
-            icon: 'sun',
-            id: 1
-        },
-        {
-            // _id: '5f15d54cf3a046427a1c26e3',
-            name: 'Computers',
-            color: '#E1F0E7',
-            icon: 'desktop',
-            id: 2
-        },
-        {
-            // _id: '5f15d467f3a046427a1c26e1',
-            name: 'New Mobile new',
-            color: 'Blue',
-            icon: 'icon5',
-            id: 3
-        },
-        {
-            // _id: '608fe08365074604f45ce544',
-            name: 'Cameras',
-            icon: 'camera',
-            color: '#ede4da',
-            id: 4
-        },
-        {
-            // _id: '5f15d545f3a046427a1c26e2',
-            name: 'Beauty',
-            color: '#F0E8DE',
-            icon: 'palette',
-            id: 5
-        },
-        {
-            // _id: '5f15d5b2cb4a6642bddc0fe7',
-            name: 'House',
-            color: '#E2E1F0',
-            icon: 'home',
-            id: 6
-        }
-    ];
+    categories: Category[] = [];
+    id: any;
 
-    constructor() {}
+    constructor(
+        private categoryService: CategoriesService,
+        private messageSrv: MessageService,
+        private route: Router,
+        private confirmationSrv: ConfirmationService
+    ) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.getCategories();
+    }
+    onDelete(id: any) {
+        console.log(id);
+        this.confirmationSrv.confirm({
+            message: 'Do you want to delete this record?',
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            accept: () => {
+                this.categoryService.deleteCategory(id).subscribe(
+                    (deletedCategory) => {
+                        // this.categories.filter((category) => category.id !== id);
+                        this.getCategories();
+                        this.messageSrv.add({
+                            severity: 'success',
+                            summary: 'success',
+                            detail: 'the category is deleted'
+                        });
+                    },
+                    (error) => {
+                        this.messageSrv.add({
+                            severity: 'error',
+                            summary: 'error',
+                            detail: 'Category is not deleted'
+                        });
+                    }
+                );
+            },
+            reject: () => {
+                this.messageSrv.add({
+                    severity: 'warn',
+                    summary: 'Cancelled',
+                    detail: 'You have cancelled'
+                });
+            }
+        });
+    }
+    onUpdate(id: string) {
+        this.route.navigateByUrl(`categories/form/${id}`);
+    }
+    private getCategories() {
+        this.categoryService
+            .getCategories()
+            .subscribe((categories: Category[]) => {
+                this.categories = categories;
+            });
+    }
 }

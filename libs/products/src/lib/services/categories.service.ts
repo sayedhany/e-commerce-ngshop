@@ -1,38 +1,32 @@
+import { environment } from '@env/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Category } from '../models/category.model';
+
 @Injectable({
     providedIn: 'root'
 })
 export class CategoriesService {
-    updateCategory(category: Category, id: any) {
+    api = environment.apiUrl + 'categories';
+    updateCategory(category: Category, id: string) {
         return this.httpClient.put<Category>(
-            'http://localhost:3000/api/v1/categories/' + id,
+            `${this.api}categories/` + id,
             category
         );
     }
     constructor(private httpClient: HttpClient) {}
     getCategories(): Observable<Category[]> {
-        return this.httpClient.get<Category[]>(
-            'http://localhost:3000/api/v1/categories'
-        );
+        return this.httpClient.get<Category[]>(`${this.api}`);
     }
     getCategory(id: string): Observable<Category> {
-        return this.httpClient.get<Category>(
-            'http://localhost:3000/api/v1/categories/' + id
-        );
+        return this.httpClient.get<Category>(`${this.api}/` + id);
     }
     createCategory(category: Category): Observable<Category> {
-        return this.httpClient.post<Category>(
-            'http://localhost:3000/api/v1/categories',
-            category
-        );
+        return this.httpClient.post<Category>(`${this.api}`, category);
     }
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    deleteCategory(id: string): Observable<Object> {
-        return this.httpClient.delete(
-            'http://localhost:3000/api/v1/categories/' + id
-        );
+
+    deleteCategory(id: string): Observable<unknown> {
+        return this.httpClient.delete(`${this.api}/` + id);
     }
 }

@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class CategoriesListComponent implements OnInit {
     categories: Category[] = [];
-    id: any;
+    id: string;
 
     constructor(
         private categoryService: CategoriesService,
@@ -31,7 +31,7 @@ export class CategoriesListComponent implements OnInit {
             icon: 'pi pi-info-circle',
             accept: () => {
                 this.categoryService.deleteCategory(id).subscribe(
-                    (deletedCategory) => {
+                    () => {
                         // this.categories.filter((category) => category.id !== id);
                         this.getCategories();
                         this.messageSrv.add({
@@ -40,7 +40,7 @@ export class CategoriesListComponent implements OnInit {
                             detail: 'the category is deleted'
                         });
                     },
-                    (error) => {
+                    () => {
                         this.messageSrv.add({
                             severity: 'error',
                             summary: 'error',

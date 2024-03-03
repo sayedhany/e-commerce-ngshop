@@ -2,7 +2,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CategoriesService, Category } from '@cairo/products';
 // import { error } from 'console';
 import { MessageService } from 'primeng/api';
@@ -80,12 +80,12 @@ export class CategoriesFormComponent implements OnInit {
                     });
                     timer(2000)
                         .toPromise()
-                        .then((done) => {
+                        .then(() => {
                             // this.route.navigate(['./', 'categories']);
                             this.location.back();
                         });
                 },
-                (error) => {
+                () => {
                     this.messageSrv.add({
                         severity: 'error',
                         summary: 'error',
@@ -101,16 +101,16 @@ export class CategoriesFormComponent implements OnInit {
                 this.messageSrv.add({
                     severity: 'success',
                     summary: 'success',
-                    detail: 'Category is created'
+                    detail: `Category ${newCategory.name} is created`
                 });
                 timer(2000)
                     .toPromise()
-                    .then((done) => {
+                    .then(() => {
                         // this.route.navigate(['./', 'categories']);
                         this.location.back();
                     });
             },
-            (error) => {
+            () => {
                 this.messageSrv.add({
                     severity: 'error',
                     summary: 'error',

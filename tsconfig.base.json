@@ -19,7 +19,8 @@
             "@cairo/ui": ["libs/ui/src/index.ts"],
             "@cairo/products": ["libs/products/src/index.ts"],
             "@cairo/users": ["libs/users/src/index.ts"],
-            "@cairo/orders": ["libs/orders/src/index.ts"]
+            "@cairo/orders": ["libs/orders/src/index.ts"],
+            "@env/*": ["./environments/*"]
         }
     },
     "exclude": ["node_modules", "tmp"]

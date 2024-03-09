@@ -1,7 +1,7 @@
-/* eslint-disable quotes */
-/* eslint-disable max-len */
 import { Component, OnInit } from '@angular/core';
-import { Product, ProductsService } from '@cairo/products';
+import { Router } from '@angular/router';
+import { ProductsService } from '@cairo/products';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
     selector: 'admin-products-list',
@@ -9,17 +9,53 @@ import { Product, ProductsService } from '@cairo/products';
     styles: []
 })
 export class ProductsListComponent implements OnInit {
-    products: Product[];
-    constructor(private productSrv: ProductsService) {}
+    products = [];
+
+    constructor(
+        private productsService: ProductsService,
+        private router: Router,
+        private messageService: MessageService,
+        private confirmationService: ConfirmationService
+    ) {}
 
     ngOnInit(): void {
         this._getProducts();
     }
-    onDelete(id: string) {}
-    onUpdate(id: string) {}
+
     private _getProducts() {
-        this.productSrv.getProducts().subscribe((products) => {
+        this.productsService.getProducts().subscribe((products) => {
             this.products = products;
+        });
+    }
+
+    updateProduct(productid: string) {
+        this.router.navigateByUrl(`products/form/${productid}`);
+    }
+
+    deleteProduct(productId: string) {
+        this.confirmationService.confirm({
+            message: 'Do you want to delete this Product?',
+            header: 'Delete Product',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+                this.productsService.deleteProduct(productId).subscribe(
+                    () => {
+                        this._getProducts();
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Success',
+                            detail: 'Product is deleted!'
+                        });
+                    },
+                    () => {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: 'Product is not deleted!'
+                        });
+                    }
+                );
+            }
         });
     }
 }

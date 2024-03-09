@@ -21,6 +21,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { EditorModule } from 'primeng/editor';
 import { InputMaskModule } from 'primeng/inputmask';
 import { TagModule } from 'primeng/tag';
+import { FieldsetModule } from 'primeng/fieldset';
 
 import { AppComponent } from './app.component';
 import { ProductsListComponent } from './pages/products/products-list/products-list.component';
@@ -33,6 +34,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductsFormComponent } from './pages/products/products-form/products-form.component';
 import { UsersListComponent } from './pages/users/users-list/users-list.component';
 import { UsersFormComponent } from './pages/users/users-form/users-form.component';
+import { OrdersListComponent } from './pages/orders/orders-list/orders-list.component';
+import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detail.component';
 
 const PRIMENG_MODULES = [
     CardModule,
@@ -49,7 +52,8 @@ const PRIMENG_MODULES = [
     DropdownModule,
     EditorModule,
     InputMaskModule,
-    TagModule
+    TagModule,
+    FieldsetModule
 ];
 
 const routes: Routes = [
@@ -66,7 +70,9 @@ const routes: Routes = [
             { path: 'products/form/:id', component: ProductsFormComponent },
             { path: 'users', component: UsersListComponent },
             { path: 'users/form', component: UsersFormComponent },
-            { path: 'users/form/:id', component: UsersFormComponent }
+            { path: 'users/form/:id', component: UsersFormComponent },
+            { path: 'orders', component: OrdersListComponent },
+            { path: 'orders/:id', component: OrdersDetailComponent }
         ]
     }
 ];
@@ -81,7 +87,9 @@ const routes: Routes = [
         ProductsListComponent,
         ProductsFormComponent,
         UsersListComponent,
-        UsersFormComponent
+        UsersFormComponent,
+        OrdersListComponent,
+        OrdersDetailComponent
     ],
     imports: [
         BrowserModule,

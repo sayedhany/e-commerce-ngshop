@@ -1,0 +1,12 @@
+.login-register {
+    background: linear-gradient(45deg, #110303 0%, #f28282 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.login-register-panel {
+    width: 650px;
+    height: 525px;
+    background: var(--surface-a);
+}

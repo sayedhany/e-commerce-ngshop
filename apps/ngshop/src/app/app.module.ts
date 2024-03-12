@@ -9,6 +9,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { AccordionModule } from 'primeng/accordion';
+import { NavComponent } from './shared/nav/nav.component';
+import { ProductsModule } from '@cairo/products';
 const routes: Routes = [
     {
         path: '',
@@ -25,13 +27,15 @@ const routes: Routes = [
         HomePageComponent,
         ProductListComponent,
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        NavComponent
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         AccordionModule,
         UiModule,
+        ProductsModule,
         RouterModule.forRoot(routes)
     ],
     providers: [],

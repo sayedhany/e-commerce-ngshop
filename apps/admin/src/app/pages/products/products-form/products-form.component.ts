@@ -1,19 +1,22 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoriesService, Category } from '@cairo/products';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'admin-products-form',
     templateUrl: './products-form.component.html',
     styles: []
 })
-export class ProductsFormComponent implements OnInit {
+export class ProductsFormComponent implements OnInit, OnDestroy {
     form: FormGroup;
     isSubmited: boolean;
     categories: Category[];
     editMode: boolean;
     imageDisplay: string | ArrayBuffer;
+    endSubs$: Subject<any> = new Subject();
 
     constructor(
         private formBuilder: FormBuilder,
@@ -40,9 +43,12 @@ export class ProductsFormComponent implements OnInit {
         });
     }
     private _getCategories() {
-        this.categorySrv.getCategories().subscribe((categories) => {
-            this.categories = categories;
-        });
+        this.categorySrv
+            .getCategories()
+            .pipe(takeUntil(this.endSubs$))
+            .subscribe((categories) => {
+                this.categories = categories;
+            });
     }
     onSubmit() {
         console.log(this.form.value);
@@ -59,5 +65,8 @@ export class ProductsFormComponent implements OnInit {
     }
     get productForm() {
         return this.form.controls;
+    }
+    ngOnDestroy(): void {
+        this.endSubs$.complete();
     }
 }

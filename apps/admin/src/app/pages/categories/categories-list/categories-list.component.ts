@@ -1,18 +1,20 @@
 import { Category } from '@cairo/products';
 import { CategoriesService } from '@cairo/products';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'admin-categories-list',
     templateUrl: './categories-list.component.html',
     styleUrls: ['./categories-list.component.scss']
 })
-export class CategoriesListComponent implements OnInit {
+export class CategoriesListComponent implements OnInit, OnDestroy {
     categories: Category[] = [];
     id: string;
-
+    endSubs$: Subject<any> = new Subject();
     constructor(
         private categoryService: CategoriesService,
         private messageSrv: MessageService,
@@ -64,8 +66,12 @@ export class CategoriesListComponent implements OnInit {
     private getCategories() {
         this.categoryService
             .getCategories()
+            .pipe(takeUntil(this.endSubs$))
             .subscribe((categories: Category[]) => {
                 this.categories = categories;
             });
+    }
+    ngOnDestroy(): void {
+        this.endSubs$.complete();
     }
 }

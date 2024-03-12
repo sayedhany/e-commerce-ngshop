@@ -4,3 +4,4 @@ export * from './lib/models/user';
 export * from './lib/pages/login/login.component';
 export * from './lib/services/auth.service';
 export * from './lib/services/auth.guard';
+export * from './lib/services/jwt.interceptor';

@@ -26,10 +26,21 @@ export class AuthGuard implements CanActivate {
         | boolean
         | UrlTree {
         const token = this.localStorageSrv.getToken();
-        if (token) return true;
-        else {
+        if (token) {
+            const tokenDecode = JSON.parse(atob(token.split('.')[1]));
+            console.log(tokenDecode);
+            if (tokenDecode.isAdmin && !this._tokenExpired(tokenDecode.exp))
+                return true;
+            else {
+                this.router.navigate(['/login']);
+                return true;
+            }
+        } else {
             this.router.navigate(['/login']);
             return false;
         }
+    }
+    private _tokenExpired(exp: number): boolean {
+        return Math.floor(new Date().getTime() / 1000) >= exp;
     }
 }

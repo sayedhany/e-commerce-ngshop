@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 })
 export class ProductsService {
     api = environment.apiUrl + 'products';
-    updateCategory(product: Product, id: string) {
+    updateProduct(product: Product, id: string) {
         return this.httpClient.put<Product>(
             `${this.api}products/` + id,
             product
@@ -35,5 +35,10 @@ export class ProductsService {
         return this.httpClient
             .get<number>(`${this.api}/get/count`)
             .pipe(map((objectValue: any) => objectValue.productCount));
+    }
+    getFeaturedProducts(count: number): Observable<Product[]> {
+        return this.httpClient.get<Product[]>(
+            `${this.api}/get/featured/${count}`
+        );
     }
 }

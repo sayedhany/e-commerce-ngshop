@@ -11,6 +11,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { AccordionModule } from 'primeng/accordion';
 import { NavComponent } from './shared/nav/nav.component';
 import { ProductsModule } from '@cairo/products';
+import { HttpClientModule } from '@angular/common/http';
 const routes: Routes = [
     {
         path: '',
@@ -34,6 +35,7 @@ const routes: Routes = [
         BrowserModule,
         BrowserAnimationsModule,
         AccordionModule,
+        HttpClientModule,
         UiModule,
         ProductsModule,
         RouterModule.forRoot(routes)

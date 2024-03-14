@@ -18,8 +18,13 @@ export class ProductsService {
         );
     }
     constructor(private httpClient: HttpClient) {}
-    getProducts(): Observable<Product[]> {
-        return this.httpClient.get<Product[]>(`${this.api}`);
+    getProducts(categoris?: string[]): Observable<Product[]> {
+        const params = categoris?.join(',');
+        console.log(params);
+
+        return this.httpClient.get<Product[]>(
+            `${this.api}${params ? '?categories=' + params : ''}`
+        );
     }
     getProduct(id: string): Observable<Product> {
         return this.httpClient.get<Product>(`${this.api}/` + id);

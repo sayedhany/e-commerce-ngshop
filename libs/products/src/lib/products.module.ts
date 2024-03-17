@@ -1,3 +1,5 @@
+import { UiModule } from '@cairo/ui';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsSearchComponent } from './components/products-search/products-search.component';
@@ -9,13 +11,21 @@ import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ProductsListComponent } from './pages/products-list/products-list.component';
 import { FormsModule } from '@angular/forms';
-
-const routes: Routes = [{ path: 'products', component: ProductsListComponent }];
+import { ProductPageComponent } from './pages/product-page/product-page.component';
+import { RatingModule } from 'primeng/rating';
+const routes: Routes = [
+    { path: 'products', component: ProductsListComponent },
+    { path: 'category/:categoryid', component: ProductsListComponent },
+    { path: 'products/:productid', component: ProductPageComponent }
+];
 @NgModule({
     imports: [
         CommonModule,
         CheckboxModule,
         FormsModule,
+        RatingModule,
+        InputNumberModule,
+        UiModule,
         RouterModule.forChild(routes),
         ButtonModule
     ],
@@ -24,14 +34,16 @@ const routes: Routes = [{ path: 'products', component: ProductsListComponent }];
         CategoriesBannerComponent,
         ProductItemComponent,
         FeaturedProductsComponent,
-        ProductsListComponent
+        ProductsListComponent,
+        ProductPageComponent
     ],
     exports: [
         ProductsSearchComponent,
         CategoriesBannerComponent,
         ProductItemComponent,
         FeaturedProductsComponent,
-        ProductsListComponent
+        ProductsListComponent,
+        ProductPageComponent
     ]
 })
 export class ProductsModule {}

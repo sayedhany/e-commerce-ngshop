@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
 import { CategoriesService } from '../../services/categories.service';
 import { Category } from '../../models/category.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'products-products-list',
@@ -15,13 +16,23 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     products: Product[] = [];
     categories: Category[] = [];
     endSub$: Subject<any> = new Subject();
+    isCategory = false;
     constructor(
         private productSrv: ProductsService,
-        private categorySrv: CategoriesService
+        private categorySrv: CategoriesService,
+        private route: ActivatedRoute
     ) {}
 
     ngOnInit(): void {
-        this._getProducts();
+        this.route.params.subscribe((params) => {
+            if (params.categoryid) {
+                this._getProducts([params.categoryid]);
+                this.isCategory = true;
+            } else {
+                this._getProducts();
+                this.isCategory = false;
+            }
+        });
         this._getCategories();
     }
     categoryFilter() {

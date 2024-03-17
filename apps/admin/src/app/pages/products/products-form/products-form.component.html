@@ -1,13 +1,13 @@
 <p-toast></p-toast>
 <div class="admin-page">
-  <p-card [header]="editMode? 'Edit Product':'Add Product'" subheader="list of all products">
+  <p-card [header]="editmode? 'Edit Product':'Add Product'" subheader="list of all products">
     <div class="p-grid p-mb-5">
       <div class="p-col-12">
         <p-toolbar>
           <div class="p-toolbar-group-left"></div>
           <div class="p-toolbar-group-right">
             <p-button styleClass="p-button-primary p-mr-2"
-             [label]="editMode ? 'Update':'Create'"
+             [label]="editmode ? 'Update':'Create'"
               icon="pi pi-plus"
               (click)="onSubmit()"
               ></p-button>
@@ -43,14 +43,17 @@
         <div class="p-field p-col-4 ">
           <label for="category" class="p-mr-1">Category</label>
 
-          <p-dropdown formControlName="category"
-           [options]="categories"
-           [filter]="true"
-           [showClear]="true"
-           id="category"
-           placeholder="Select a category"
-           filterBy="name"
-            optionLabel="name"></p-dropdown>
+          <p-dropdown
+                [options]="catagories"
+                formControlName="category"
+                optionLabel="name"
+                optionValue="id"
+                [filter]="true"
+                filterBy="name"
+                [showClear]="true"
+                placeholder="Select a Category"
+              ></p-dropdown>
+
           <small class="p-error" *ngIf="productForm.category.invalid && isSubmited">Category is required</small>
         </div>
         <div class="p-field p-col-4 p-d-flex p-flex-column">
@@ -73,6 +76,7 @@
           <div class="p-col-2 p-mt-2 p-pl-0">
             <img style="width: 100%;" [src]="imageDisplay" alt=""/>
           </div>
+          <small class="p-error" *ngIf="productForm.image.invalid && isSubmited">Image is required</small>
         </div>
       </div>
     </form>

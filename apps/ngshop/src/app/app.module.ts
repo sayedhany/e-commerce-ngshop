@@ -12,6 +12,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { NavComponent } from './shared/nav/nav.component';
 import { ProductsModule } from '@cairo/products';
 import { HttpClientModule } from '@angular/common/http';
+import { OrdersModule } from '@cairo/orders';
 const routes: Routes = [
     {
         path: '',
@@ -34,6 +35,7 @@ const routes: Routes = [
         HttpClientModule,
         UiModule,
         ProductsModule,
+        OrdersModule,
         RouterModule.forRoot(routes)
     ],
     providers: [],

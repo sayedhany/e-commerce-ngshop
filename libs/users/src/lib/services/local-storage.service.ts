@@ -9,7 +9,7 @@ export class LocalStorageService {
         localStorage.setItem(TOKEN, data);
     }
     getToken(): string {
-        return localStorage.getItem(TOKEN);
+        return localStorage.getItem(TOKEN) as string;
     }
     removeToken() {
         localStorage.removeItem(TOKEN);

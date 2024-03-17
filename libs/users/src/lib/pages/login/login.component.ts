@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
     styles: []
 })
 export class LoginComponent implements OnInit {
-    loginFormGroup: FormGroup;
+    loginFormGroup!: FormGroup;
     isSubmitted = false;
     errorMessage = 'Email or Password are wrong';
     isLodaing = false;
@@ -41,14 +41,11 @@ export class LoginComponent implements OnInit {
             this.isLodaing = true;
             this.authSrv.login(loginData.email, loginData.password).subscribe(
                 (data) => {
-                    console.log(data);
-
                     this.errorMessage = '';
-                    this.localStorageSrv.setToken(data.token);
+                    this.localStorageSrv.setToken(data.token as string);
                     this.route.navigateByUrl('/');
                 },
                 (error: HttpErrorResponse) => {
-                    console.log(error);
                     this.isLodaing = false;
                     this.errorMessage = 'Email or Password are wrong';
 

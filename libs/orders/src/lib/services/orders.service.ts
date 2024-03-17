@@ -12,7 +12,7 @@ export class OrdersService {
     api = environment.apiUrl + 'orders';
 
     constructor(private httpClient: HttpClient) {}
-    updateOrder(orderStatus, id: string) {
+    updateOrder(orderStatus: string, id: string) {
         return this.httpClient.put<Order>(`${this.api}/` + id, {
             status: orderStatus
         });

@@ -1,3 +1,5 @@
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 import { UiModule } from '@cairo/ui';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { NgModule } from '@angular/core';
@@ -24,6 +26,7 @@ const routes: Routes = [
         CheckboxModule,
         FormsModule,
         RatingModule,
+        ToastModule,
         InputNumberModule,
         UiModule,
         RouterModule.forChild(routes),
@@ -44,6 +47,7 @@ const routes: Routes = [
         FeaturedProductsComponent,
         ProductsListComponent,
         ProductPageComponent
-    ]
+    ],
+    providers: []
 })
 export class ProductsModule {}

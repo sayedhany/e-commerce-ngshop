@@ -13,6 +13,7 @@ import { NavComponent } from './shared/nav/nav.component';
 import { ProductsModule } from '@cairo/products';
 import { HttpClientModule } from '@angular/common/http';
 import { OrdersModule } from '@cairo/orders';
+import { MessageService } from 'primeng/api';
 const routes: Routes = [
     {
         path: '',
@@ -38,7 +39,7 @@ const routes: Routes = [
         OrdersModule,
         RouterModule.forRoot(routes)
     ],
-    providers: [],
+    providers: [MessageService],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

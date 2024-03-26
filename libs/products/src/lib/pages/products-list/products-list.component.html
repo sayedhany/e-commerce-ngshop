@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="products-page">
   <div class="p-grid">
     <div class="p-col-3" *ngIf="!isCategory">
@@ -10,7 +11,7 @@
     <div class="p-col-{{isCategory ? 12:9}}">
       <div class="p-grid" *ngIf="products">
         <div class="p-col-{{isCategory ? 3:4}}" *ngFor="let product of products">
-          <products-product-item [product]="product"></products-product-item>
+          <products-product-item (messageN)="onShowMessage()" [product]="product"></products-product-item>
         </div>
       </div>
     </div>

@@ -6,6 +6,7 @@ import { delay, takeUntil } from 'rxjs/operators';
 import { CategoriesService } from '../../services/categories.service';
 import { Category } from '../../models/category.model';
 import { ActivatedRoute } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'products-products-list',
@@ -20,6 +21,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     constructor(
         private productSrv: ProductsService,
         private categorySrv: CategoriesService,
+        private messageSrv: MessageService,
         private route: ActivatedRoute
     ) {}
 
@@ -56,6 +58,13 @@ export class ProductsListComponent implements OnInit, OnDestroy {
             .subscribe((categories) => {
                 this.categories = categories;
             });
+    }
+    onShowMessage() {
+        this.messageSrv.add({
+            severity: 'success',
+            summary: 'success',
+            detail: ' Cart is Updated'
+        });
     }
     ngOnDestroy(): void {
         this.endSub$.next();

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../models/product';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { CartItem, CartService } from '@cairo/orders';
 
 @Component({
     selector: 'products-product-page',
@@ -13,11 +14,12 @@ import { Subject } from 'rxjs';
 export class ProductPageComponent implements OnInit, OnDestroy {
     product: Product = {};
     endsubs$: Subject<any> = new Subject();
-    quantity: number | undefined;
+    quantity = 1;
 
     constructor(
         private productSrv: ProductsService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private cartSrv: CartService
     ) {}
 
     ngOnInit(): void {
@@ -32,7 +34,13 @@ export class ProductPageComponent implements OnInit, OnDestroy {
             }
         });
     }
-    addProductToCart() {}
+    addProductToCart() {
+        const cartItem: CartItem = {
+            productid: this.product.id,
+            quantity: this.quantity
+        };
+        this.cartSrv.setCartItem(cartItem);
+    }
     ngOnDestroy(): void {
         this.endsubs$.next();
         this.endsubs$.complete();

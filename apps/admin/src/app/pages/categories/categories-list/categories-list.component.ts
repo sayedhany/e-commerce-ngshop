@@ -14,7 +14,7 @@ import { Subject } from 'rxjs';
 export class CategoriesListComponent implements OnInit, OnDestroy {
     categories: Category[] = [];
     id: string;
-    endSubs$: Subject<any> = new Subject();
+    endSubs$: Subject<unknown> = new Subject();
     constructor(
         private categoryService: CategoriesService,
         private messageSrv: MessageService,
@@ -25,8 +25,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.getCategories();
     }
-    onDelete(id: any) {
-        console.log(id);
+    onDelete(id: string) {
         this.confirmationSrv.confirm({
             message: 'Do you want to delete this record?',
             header: 'Delete Confirmation',

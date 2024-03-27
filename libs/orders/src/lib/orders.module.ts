@@ -37,6 +37,7 @@ export const ordersRoutes: Route[] = [
         InputTextModule,
         InputNumberModule,
         FormsModule,
+
         InputNumberModule,
         InputMaskModule,
         DropdownModule,

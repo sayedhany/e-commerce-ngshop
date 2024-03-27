@@ -11,7 +11,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
     statistics = [];
-    endSubs$: Subject<any> = new Subject();
+    endSubs$: Subject<unknown> = new Subject();
     constructor(
         private userService: UsersService,
         private productService: ProductsService,

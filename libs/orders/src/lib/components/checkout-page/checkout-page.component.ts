@@ -8,6 +8,7 @@ import { CartService } from '../../services/cart.service';
 import { Cart } from '../../models/cart';
 import { OrdersService } from '../../services/orders.service';
 import { ORDER_STATUS } from '../../order.constants';
+import { StripeService } from 'ngx-stripe';
 
 @Component({
     selector: 'orders-checkout-page',
@@ -20,7 +21,8 @@ export class CheckoutPageComponent implements OnInit {
         private usersService: UsersService,
         private formBuilder: FormBuilder,
         private cartSrv: CartService,
-        private ordersSrv: OrdersService
+        private ordersSrv: OrdersService,
+        private stripeSrv: StripeService
     ) {}
     checkoutFormGroup!: FormGroup;
     isSubmitted = false;
@@ -68,6 +70,10 @@ export class CheckoutPageComponent implements OnInit {
     }
 
     placeOrder() {
+        if (this.checkoutFormGroup.invalid) {
+            return;
+        }
+        this.isSubmitted = true;
         const order: Order = {
             orderItems: this.orderItems,
             shippingAddress1: this.checkoutForm.street.value,
@@ -80,14 +86,13 @@ export class CheckoutPageComponent implements OnInit {
             status: Object.keys(ORDER_STATUS)[0],
             dateOrdered: String(Date.now())
         };
-        this.isSubmitted = true;
-        if (this.checkoutFormGroup.invalid) {
-            return;
-        }
-        this.ordersSrv.createOrder(order).subscribe(() => {
-            this.cartSrv.emptyCart();
-            this.router.navigate(['/success']);
-        });
+        this.ordersSrv.cashOrderData(order);
+        
+        this.ordersSrv
+            .createCheckoutSession(this.orderItems as OrderItem[])
+            .subscribe((error) => {
+                console.log(error);
+            });
     }
 
     get checkoutForm() {

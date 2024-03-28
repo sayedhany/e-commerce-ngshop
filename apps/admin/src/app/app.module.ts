@@ -37,6 +37,7 @@ import { OrdersListComponent } from './pages/orders/orders-list/orders-list.comp
 import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detail.component';
 import { JwtInterceptor, UsersModule } from '@cairo/users';
 import { AppRoutingModule } from './app-routing.module';
+import { NgxStripeModule } from 'ngx-stripe';
 
 const PRIMENG_MODULES = [
     CardModule,
@@ -79,6 +80,9 @@ const PRIMENG_MODULES = [
         BrowserAnimationsModule,
         ReactiveFormsModule,
         UsersModule,
+        NgxStripeModule.forRoot(
+            'pk_test_51Oyu4D2LfKOCWaqbzbRGlObTF9ewb9Y55n2Yx7eu4r2yh9mY1D4HhgEpYmXBa4WB7jbPZqZstugBXkwxvQccJ5QS00jSOECyfO'
+        ),
         AppRoutingModule,
         ...PRIMENG_MODULES
     ],

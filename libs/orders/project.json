@@ -1,0 +1,39 @@
+{
+    "name": "orders",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "library",
+    "sourceRoot": "libs/orders/src",
+    "prefix": "orders",
+    "targets": {
+        "build": {
+            "executor": "@nx/angular:ng-packagr-lite",
+            "options": {
+                "tsConfig": "libs/orders/tsconfig.lib.json",
+                "project": "libs/orders/ng-package.json",
+                "updateBuildableProjectDepsInPackageJson": true
+            },
+            "configurations": {
+                "production": {
+                    "tsConfig": "libs/orders/tsconfig.lib.prod.json"
+                }
+            }
+        },
+        "lint": {
+            "executor": "@nx/linter:eslint",
+            "options": {
+                "lintFilePatterns": [
+                    "libs/orders/src/**/*.ts",
+                    "libs/orders/src/**/*.html"
+                ]
+            }
+        },
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/libs/orders"],
+            "options": {
+                "jestConfig": "libs/orders/jest.config.js",
+                "passWithNoTests": true
+            }
+        }
+    }
+}

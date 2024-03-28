@@ -1,0 +1,89 @@
+{
+    "name": "ngshop",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "application",
+    "sourceRoot": "apps/ngshop/src",
+    "prefix": "cairo",
+    "targets": {
+        "build": {
+            "executor": "@angular-devkit/build-angular:browser",
+            "options": {
+                "outputPath": "dist/apps/ngshop",
+                "index": "apps/ngshop/src/index.html",
+                "main": "apps/ngshop/src/main.ts",
+                "polyfills": "apps/ngshop/src/polyfills.ts",
+                "tsConfig": "apps/ngshop/tsconfig.app.json",
+                "aot": true,
+                "assets": [
+                    "apps/ngshop/src/favicon.ico",
+                    "apps/ngshop/src/assets"
+                ],
+                "styles": ["apps/ngshop/src/styles.scss"],
+                "scripts": []
+            },
+            "configurations": {
+                "production": {
+                    "fileReplacements": [
+                        {
+                            "replace": "./environments/environment.ts",
+                            "with": "./environments/environment.prod.ts"
+                        }
+                    ],
+                    "optimization": true,
+                    "outputHashing": "all",
+                    "sourceMap": false,
+                    "namedChunks": false,
+                    "extractLicenses": true,
+                    "vendorChunk": false,
+                    "buildOptimizer": true,
+                    "budgets": [
+                        {
+                            "type": "initial",
+                            "maximumWarning": "2mb",
+                            "maximumError": "5mb"
+                        },
+                        {
+                            "type": "anyComponentStyle",
+                            "maximumWarning": "6kb",
+                            "maximumError": "10kb"
+                        }
+                    ]
+                }
+            }
+        },
+        "serve": {
+            "executor": "@angular-devkit/build-angular:dev-server",
+            "options": {
+                "browserTarget": "ngshop:build"
+            },
+            "configurations": {
+                "production": {
+                    "browserTarget": "ngshop:build:production"
+                }
+            }
+        },
+        "extract-i18n": {
+            "executor": "@angular-devkit/build-angular:extract-i18n",
+            "options": {
+                "browserTarget": "ngshop:build"
+            }
+        },
+        "lint": {
+            "executor": "@nx/linter:eslint",
+            "options": {
+                "lintFilePatterns": [
+                    "apps/ngshop/src/**/*.ts",
+                    "apps/ngshop/src/**/*.html"
+                ]
+            }
+        },
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/apps/ngshop"],
+            "options": {
+                "jestConfig": "apps/ngshop/jest.config.js",
+                "passWithNoTests": true
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "name": "users",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "library",
+    "sourceRoot": "libs/users/src",
+    "prefix": "users",
+    "targets": {
+        "build": {
+            "executor": "@nx/angular:ng-packagr-lite",
+            "options": {
+                "tsConfig": "libs/users/tsconfig.lib.json",
+                "project": "libs/users/ng-package.json",
+                "updateBuildableProjectDepsInPackageJson": true
+            },
+            "configurations": {
+                "production": {
+                    "tsConfig": "libs/users/tsconfig.lib.prod.json"
+                }
+            }
+        },
+        "lint": {
+            "executor": "@nx/linter:eslint",
+            "options": {
+                "lintFilePatterns": [
+                    "libs/users/src/**/*.ts",
+                    "libs/users/src/**/*.html"
+                ]
+            }
+        },
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/libs/users"],
+            "options": {
+                "jestConfig": "libs/users/jest.config.js",
+                "passWithNoTests": true
+            }
+        }
+    }
+}

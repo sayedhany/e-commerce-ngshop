@@ -1,0 +1,26 @@
+{
+    "name": "products",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "library",
+    "sourceRoot": "libs/products/src",
+    "prefix": "cairo",
+    "targets": {
+        "lint": {
+            "executor": "@nx/linter:eslint",
+            "options": {
+                "lintFilePatterns": [
+                    "libs/products/src/**/*.ts",
+                    "libs/products/src/**/*.html"
+                ]
+            }
+        },
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/libs/products"],
+            "options": {
+                "jestConfig": "libs/products/jest.config.js",
+                "passWithNoTests": true
+            }
+        }
+    }
+}

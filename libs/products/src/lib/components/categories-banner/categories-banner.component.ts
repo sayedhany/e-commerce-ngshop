@@ -20,7 +20,7 @@ export class CategoriesBannerComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.endsubs$))
             .subscribe((categories) => {
                 this.categories = categories;
-                console.log(categories);
+               
             });
     }
     ngOnDestroy(): void {

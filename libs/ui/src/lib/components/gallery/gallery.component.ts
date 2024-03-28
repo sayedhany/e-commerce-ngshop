@@ -19,11 +19,9 @@ export class GalleryComponent implements OnInit {
             } else {
                 this.selectedImage = this.image;
             }
-            console.log(this.images, this.image);
         }, 500);
     }
     changeSelectedImage(imageUrl: string) {
-        console.log(imageUrl);
         this.selectedImage = imageUrl;
     }
     get hasImages() {

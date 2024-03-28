@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
                 }
             );
         }
-        console.log(this.loginForm);
+      
     }
     get loginForm() {
         return this.loginFormGroup.controls;

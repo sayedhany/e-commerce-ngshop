@@ -20,7 +20,7 @@ export class ProductsService {
     constructor(private httpClient: HttpClient) {}
     getProducts(categoris?: string[]): Observable<Product[]> {
         const params = categoris?.join(',');
-        console.log(params);
+      
 
         return this.httpClient.get<Product[]>(
             `${this.api}${params ? '?categories=' + params : ''}`

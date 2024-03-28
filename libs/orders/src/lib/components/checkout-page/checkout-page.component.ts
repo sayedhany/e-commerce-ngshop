@@ -45,7 +45,7 @@ export class CheckoutPageComponent implements OnInit {
                 };
             }
         ) as OrderItem[];
-        console.log(this.orderItems);
+      
     }
 
     private _initCheckoutForm() {

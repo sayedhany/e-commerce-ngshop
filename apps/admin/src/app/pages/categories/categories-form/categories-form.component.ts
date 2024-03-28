@@ -48,7 +48,6 @@ export class CategoriesFormComponent implements OnInit {
                         this.categoryForm.name.setValue(category.name);
                         this.categoryForm.icon.setValue(category.icon);
                         this.categoryForm.color.setValue(category.color);
-                        console.log(category);
                     });
             } else {
                 this.editMode = false;
@@ -58,7 +57,7 @@ export class CategoriesFormComponent implements OnInit {
     onSubmit() {
         this.isSubmited = true;
         if (this.form.valid) {
-            console.log(this.form.value);
+           
             const category: Category = this.form.value;
             if (this.editMode) {
                 this._updateCategory(category);
@@ -72,7 +71,7 @@ export class CategoriesFormComponent implements OnInit {
             .updateCategory(category, this.currentCategoryId)
             .subscribe(
                 (newCategory) => {
-                    console.log(newCategory);
+                    
                     this.messageSrv.add({
                         severity: 'success',
                         summary: 'success',
@@ -97,7 +96,7 @@ export class CategoriesFormComponent implements OnInit {
     private _addCategory(category: Category) {
         this.categorySrv.createCategory(category).subscribe(
             (newCategory) => {
-                console.log(newCategory);
+               
                 this.messageSrv.add({
                     severity: 'success',
                     summary: 'success',

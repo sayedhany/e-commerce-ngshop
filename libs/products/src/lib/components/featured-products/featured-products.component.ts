@@ -17,7 +17,7 @@ export class FeaturedProductsComponent implements OnInit {
 
     ngOnInit(): void {
         this.productSrv.getFeaturedProducts(11).subscribe((products) => {
-            console.log(products);
+           
             this.featuredProducts = products;
         });
     }
